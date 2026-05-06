@@ -51,10 +51,10 @@ pnpm add -D -w <package>
 ## Parts
 
 ### Frontend — `apps/albumcito-facilito-app/`
-The user-facing application where collectors view their album, mark stickers as collected, and track their progress. Built with **Next.js 16** (App Router), **TypeScript**, **Tailwind CSS v4**, **Vitest**, and **ESLint**. See `apps/albumcito-facilito-app/CLAUDE.md` for details.
+The user-facing application where collectors view their album, mark stickers as collected, and track their progress. Built with **Next.js 16** (App Router), **TypeScript**, **Tailwind CSS v4**, **Vitest**, and **ESLint**. Runs on **port 3000**. See `apps/albumcito-facilito-app/CLAUDE.md` for details.
 
 ### Backend — `apis/albumcito-facilito-api/`
-The REST API that manages sticker data, user collections, and album state. Built with **NestJS v11**, **TypeScript**, **Jest**, and **ESLint + Prettier**. Runs on Node.js ≥ 18, default port 3000. See `apis/albumcito-facilito-api/CLAUDE.md` for details.
+The REST API that manages sticker data, user collections, and album state. Built with **NestJS v11**, **TypeScript**, **Jest**, and **ESLint + Prettier**. Runs on Node.js ≥ 18, **port 3001** (`process.env.PORT` or `3001`). See `apis/albumcito-facilito-api/CLAUDE.md` for details.
 
 ## Domain Concepts
 

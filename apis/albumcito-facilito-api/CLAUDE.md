@@ -65,7 +65,7 @@ pnpm --filter @albumcito-facilito/api format
 
 ## Key Configuration
 
-- **Port**: `process.env.PORT` or `3000`
+- **Port**: `process.env.PORT` or `3001`
 - **Decorators**: `emitDecoratorMetadata` and `experimentalDecorators` are enabled in `tsconfig.json` — required for NestJS DI and decorators to work
 - **Module format**: CommonJS (`"module": "commonjs"` in tsconfig) — required by `@nestjs/cli`
 
