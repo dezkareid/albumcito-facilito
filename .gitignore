@@ -8,3 +8,4 @@ coverage/
 
 settings.local.json
 .playwright-mcp/
+reports/
