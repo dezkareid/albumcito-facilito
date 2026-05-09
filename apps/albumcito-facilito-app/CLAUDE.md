@@ -58,3 +58,9 @@ pnpm --filter @albumcito-facilito/app test:watch
 ## API
 
 Talks to the backend at `apis/albumcito-facilito-api/`. See the root `CLAUDE.md` for shared domain concepts.
+
+## Skills
+
+- **`next-best-practices`** — File conventions, RSC/client component boundaries, data-fetching patterns, async APIs, metadata, error handling, route handlers, image and font optimization, and bundling. Use when adding or refactoring pages, layouts, or data-fetching logic.
+- **`vercel-react-best-practices`** — React and Next.js performance optimization patterns from Vercel Engineering (memoization, streaming, bundle size, etc.). Use when writing or reviewing React components and pages.
+- **`bdd-gherkin`** — Write Gherkin feature files and Vitest-Cucumber step definitions for the Next.js frontend. Use when adding acceptance tests or `Given/When/Then` scenarios.

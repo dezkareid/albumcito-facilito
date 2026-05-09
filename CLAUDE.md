@@ -62,3 +62,7 @@ The REST API that manages sticker data, user collections, and album state. Built
 - **Sticker**: an individual collectible item with a number and artwork
 - **Collection**: a user's set of owned stickers
 - **Missing stickers**: stickers not yet in the user's collection
+
+## Skills
+
+- **`bdd-gherkin`** — Write and maintain BDD/Gherkin feature files and step definitions for both the Next.js frontend and the NestJS API. Use whenever adding acceptance tests, Cucumber scenarios, or `Given/When/Then` steps across either workspace.

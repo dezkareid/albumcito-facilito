@@ -92,3 +92,8 @@ This creates `src/stickers/` with the module, controller, and service wired toge
 ## Domain Concepts
 
 See the root `CLAUDE.md` for shared definitions (Album, Sticker, Collection).
+
+## Skills
+
+- **`nestjs-best-practices`** — Module structure, dependency injection, guards, interceptors, pipes, security, and performance patterns for NestJS v11. Use when adding modules, controllers, services, or reviewing API architecture.
+- **`bdd-gherkin`** — Write Gherkin feature files and Cucumber step definitions for the NestJS API. Use when adding acceptance tests or `Given/When/Then` scenarios against API endpoints.
