@@ -73,4 +73,18 @@ describe('LikeButton', () => {
       expect(fetch).toHaveBeenCalledWith('/api/likes/album/1', { method: 'POST' }),
     )
   })
+
+  it('applies animate-heart-pulse class to heart icon on like click', () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ id: 101, likeCount: 6 }),
+    } as Response)
+
+    const { container } = render(
+      <LikeButton entityType="sticker" entityId={101} initialLikeCount={5} />,
+    )
+    fireEvent.click(container.querySelector('button')!)
+    const heartSpan = container.querySelector('span')
+    expect(heartSpan?.classList.contains('animate-heart-pulse')).toBe(true)
+  })
 })

@@ -5,7 +5,7 @@ export default function AlbumCard({ album }: { album: Album }) {
   return (
     <Link
       href={`/albums/${album.id}`}
-      className="block rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-0.5"
+      className="block rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition duration-150 hover:scale-105 hover:shadow-xl"
     >
       <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100 text-3xl">
         📚
