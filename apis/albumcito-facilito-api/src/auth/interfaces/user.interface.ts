@@ -4,6 +4,8 @@ export interface User {
   email: string;
   username: string;
   passwordHash: string;
+  createdAt: Date;
+  onboardingCompleted: boolean | null;
 }
 
 export interface JwtPayload {

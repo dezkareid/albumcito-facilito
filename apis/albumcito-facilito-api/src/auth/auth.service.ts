@@ -1,15 +1,20 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import * as bcrypt from 'bcryptjs';
 import { User } from './interfaces/user.interface';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
+import { OnboardingCompletedEvent } from '../collection/events/onboarding-completed.event';
 
 @Injectable()
 export class AuthService {
   private readonly users: User[] = [];
 
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   async signup(dto: SignupDto) {
     const { name, email, password } = dto;
@@ -22,7 +27,15 @@ export class AuthService {
 
     const username = name.trim().toLowerCase().replace(/\s+/g, '-');
     const passwordHash = await bcrypt.hash(password, 10);
-    const user: User = { id: crypto.randomUUID(), name, email, username, passwordHash };
+    const user: User = {
+      id: crypto.randomUUID(),
+      name,
+      email,
+      username,
+      passwordHash,
+      createdAt: new Date(),
+      onboardingCompleted: false,
+    };
     this.users.push(user);
 
     return this.signToken(user);
@@ -40,6 +53,33 @@ export class AuthService {
     }
 
     return this.signToken(user);
+  }
+
+  getUser(userId: string): User {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  completeOnboarding(userId: string, stickerId: number, albumId: number): void {
+    const user = this.users.find((u) => u.id === userId);
+    if (!user || user.onboardingCompleted === true) return;
+
+    const onboardingCompletedAt = new Date();
+    user.onboardingCompleted = true;
+
+    this.eventEmitter.emit(
+      'onboarding.completed',
+      new OnboardingCompletedEvent({
+        userId: user.id,
+        username: user.username,
+        stickerId,
+        albumId,
+        accountCreatedAt: user.createdAt,
+        onboardingCompletedAt,
+        durationMs: onboardingCompletedAt.getTime() - user.createdAt.getTime(),
+      }),
+    );
   }
 
   private signToken(user: User) {

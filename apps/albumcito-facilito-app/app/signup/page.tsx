@@ -18,8 +18,8 @@ export default function SignupPage() {
     setError('');
     setLoading(true);
     try {
-      const { username } = await signupRequest(name, email, password);
-      router.push(`/dashboard/${username}`);
+      await signupRequest(name, email, password);
+      router.push('/onboarding');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {

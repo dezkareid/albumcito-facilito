@@ -13,5 +13,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   });
   if (!res.ok) redirect('/login');
 
+  const user = await res.json();
+  if (user.onboardingCompleted === false) redirect('/onboarding');
+
   return <>{children}</>;
 }
