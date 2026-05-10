@@ -12,12 +12,15 @@ export default function LikeButton({ entityType, entityId, initialLikeCount }: L
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [liked, setLiked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
   async function handleLike() {
     if (liked || loading) return;
     setLoading(true);
     setLikeCount((c) => c + 1);
     setLiked(true);
+    setAnimating(true);
+    setTimeout(() => setAnimating(false), 400);
     try {
       const res = await fetch(`/api/likes/${entityType}/${entityId}`, { method: 'POST' });
       if (!res.ok) {
@@ -43,7 +46,8 @@ export default function LikeButton({ entityType, entityId, initialLikeCount }: L
           : 'bg-gray-100 text-gray-500 hover:bg-pink-50 hover:text-pink-500'
       }`}
     >
-      ♥ {likeCount}
+      <span className={`inline-block ${animating ? 'animate-heart-pulse' : ''}`}>♥</span>
+      {' '}{likeCount}
     </button>
   );
 }

@@ -1,3 +1,5 @@
+## MODIFIED Requirements
+
 ### Requirement: Authenticated user can like a sticker
 The system SHALL allow an authenticated user to like a sticker. Each user SHALL only be able to like a given sticker once. The like button SHALL play a pulse animation when the like is registered.
 
@@ -20,14 +22,3 @@ The system SHALL allow an authenticated user to like a sticker. Each user SHALL 
 #### Scenario: Like button animates on successful like
 - **WHEN** a user clicks the like button and the like is successfully registered
 - **THEN** the heart icon SHALL play a pulse animation as defined in the `like-button-animation` capability
-
-### Requirement: Sticker like count is tracked globally
-The system SHALL maintain a global like count per sticker reflecting the total number of unique users who liked it.
-
-#### Scenario: Like count increments on new like
-- **WHEN** a user likes a sticker that had 3 likes
-- **THEN** the sticker's like count SHALL become 4
-
-#### Scenario: Like count does not change on duplicate like attempt
-- **WHEN** a user attempts to like a sticker they already liked (resulting in 409)
-- **THEN** the sticker's like count SHALL remain unchanged
