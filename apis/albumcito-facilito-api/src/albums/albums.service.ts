@@ -60,4 +60,19 @@ export class AlbumsService {
     const album = this.findOne(albumId);
     return generateStickers(album);
   }
+
+  findStickerById(stickerId: number): Sticker {
+    const albumId = Math.floor(stickerId / 100);
+    const album = ALBUMS.find((a) => a.id === albumId);
+    if (!album) throw new NotFoundException(`Sticker ${stickerId} not found`);
+    const index = stickerId - albumId * 100 - 1;
+    if (index < 0 || index >= album.totalStickers) {
+      throw new NotFoundException(`Sticker ${stickerId} not found`);
+    }
+    return { id: stickerId, albumId, number: index + 1, name: `Cody #${index + 1}` };
+  }
+
+  findAllStickers(): Sticker[] {
+    return ALBUMS.flatMap(generateStickers);
+  }
 }

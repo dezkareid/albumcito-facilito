@@ -1,55 +1,45 @@
 import {
   Controller,
-  Get,
   HttpCode,
   Param,
   ParseIntPipe,
   Post,
   Req,
   UseGuards,
+  Get,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { JwtPayload } from '../auth/interfaces/user.interface';
+import { AlbumsService } from '../albums/albums.service';
 import { LikesService } from '../likes/likes.service';
-import { AlbumsService } from './albums.service';
 
 const TOP_N = 5;
 
-@Controller('albums')
-export class AlbumsController {
+@Controller('stickers')
+export class StickersController {
   constructor(
     private readonly albumsService: AlbumsService,
     private readonly likesService: LikesService,
   ) {}
 
-  @Get()
-  findAll() {
-    return this.albumsService.findAll();
-  }
-
   @Get('top')
   getTop() {
-    const topIds = this.likesService.getTopAlbumIds(TOP_N);
+    const topIds = this.likesService.getTopStickerIds(TOP_N);
     return topIds.map(({ id, likeCount }) => ({
-      ...this.albumsService.findOne(id),
+      ...this.albumsService.findStickerById(id),
       likeCount,
     }));
-  }
-
-  @Get(':id/stickers')
-  findStickers(@Param('id', ParseIntPipe) id: number) {
-    return this.albumsService.findStickers(id);
   }
 
   @Post(':id/like')
   @HttpCode(201)
   @UseGuards(JwtAuthGuard)
-  likeAlbum(
+  likeSticker(
     @Param('id', ParseIntPipe) id: number,
     @Req() req: { user: JwtPayload },
   ) {
-    this.albumsService.findOne(id);
-    const likeCount = this.likesService.likeAlbum(req.user.sub, id);
+    this.albumsService.findStickerById(id);
+    const likeCount = this.likesService.likeSticker(req.user.sub, id);
     return { id, likeCount };
   }
 }
