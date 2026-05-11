@@ -1,4 +1,7 @@
+'use client';
+
 import type { Sticker } from '@/lib/albums';
+import ShareButton from './ShareButton';
 
 export default function StickerCard({ sticker }: { sticker: Sticker }) {
   return (
@@ -10,6 +13,13 @@ export default function StickerCard({ sticker }: { sticker: Sticker }) {
         #{sticker.number}
       </span>
       <span className="text-sm font-medium text-gray-700">{sticker.name}</span>
+      <div className="mt-2">
+        <ShareButton
+          path={`/albums/${sticker.albumId}`}
+          title={sticker.name}
+          className="flex items-center gap-1 rounded-full bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-400 transition hover:bg-indigo-50 hover:text-indigo-500"
+        />
+      </div>
     </div>
   );
 }
