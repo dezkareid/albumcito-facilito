@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchAlbums, fetchStickers } from '@/lib/albums';
 import StickerCard from '@/app/_components/StickerCard';
+import ShareButton from '@/app/_components/ShareButton';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -33,7 +34,10 @@ export default async function AlbumPage({ params }: Props) {
         >
           ← Back to albums
         </Link>
-        <h1 className="mt-4 text-3xl font-bold text-gray-900">{album.name}</h1>
+        <div className="mt-4 flex items-center gap-3">
+          <h1 className="text-3xl font-bold text-gray-900">{album.name}</h1>
+          <ShareButton path={`/albums/${id}`} title={album.name} />
+        </div>
         <p className="mt-1 text-gray-500">{album.description}</p>
         <p className="mt-1 text-sm text-indigo-600 font-medium">
           {stickers.length} stickers
