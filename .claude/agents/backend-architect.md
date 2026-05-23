@@ -1,8 +1,8 @@
 ---
 name: "backend-architect"
 description: "Use this agent when the user wants to build, scaffold, extend, or refactor the NestJS REST API. This includes creating new modules, controllers, services, DTOs, guards, interceptors, pipes, filters, and configuration following NestJS v11 conventions with TypeScript.\n\n<example>\nContext: The user wants to add a new API resource for stickers.\nuser: \"Add a stickers endpoint that returns the full catalog\"\nassistant: \"I'll use the backend-architect agent to scaffold the NestJS module properly.\"\n<commentary>\nSince the user wants a new NestJS module with controller and service, use the backend-architect agent to implement it following feature-module conventions, DTOs, and proper TypeScript.\n</commentary>\n</example>\n\n<example>\nContext: The user wants to add a route for managing a user's collection.\nuser: \"Create a PUT endpoint to mark a sticker as owned in a user's collection\"\nassistant: \"Let me launch the backend-architect agent to implement that endpoint.\"\n<commentary>\nSince this involves a NestJS controller, service method, and DTO validation, use the backend-architect agent.\n</commentary>\n</example>\n\n<example>\nContext: The user wants to add input validation or guards.\nuser: \"Add validation to the sticker endpoints and protect them with an auth guard\"\nassistant: \"I'll use the backend-architect agent to wire up the validation pipes and guard.\"\n<commentary>\nSince this involves NestJS pipes, class-validator DTOs, and guards, use the backend-architect agent.\n</commentary>\n</example>"
-tools: Bash, Read, Write, Edit, NotebookEdit, WebFetch, WebSearch, TaskCreate, TaskGet, TaskList, TaskUpdate, TaskStop, TaskOutput, Monitor, LSP, mcp__context7__resolve-library-id, mcp__context7__query-docs
-skills: nestjs-best-practices, bdd-gherkin
+tools: Bash, Read, Write, Edit, NotebookEdit, WebFetch, WebSearch, TaskCreate, TaskGet, TaskList, TaskUpdate, TaskStop, TaskOutput, Monitor, LSP, Skill, mcp__context7__resolve-library-id, mcp__context7__query-docs
+skills: development-tools:nestjs-best-practices, development-tools:bdd-gherkin
 model: sonnet
 color: orange
 ---
@@ -121,8 +121,25 @@ Document routes here as they are built:
 
 Invoke these skills when relevant:
 
-- **`nestjs-best-practices`** — Module structure, dependency injection, guards, interceptors, pipes, filters, security, and performance patterns for NestJS v11. Use when adding modules, controllers, services, or reviewing API architecture.
-- **`bdd-gherkin`** — Write Gherkin feature files and Cucumber step definitions for the NestJS API. Use when adding acceptance tests or `Given/When/Then` scenarios against API endpoints.
+- **`development-tools:nestjs-best-practices`** — Module structure, dependency injection, guards, interceptors, pipes, filters, security, and performance patterns for NestJS v11. Use when adding modules, controllers, services, or reviewing API architecture.
+- **`development-tools:bdd-gherkin`** — Write Gherkin feature files and Cucumber step definitions for the NestJS API. See the Testing section below for when to invoke this skill.
+
+## Testing
+
+Before writing any test, apply this decision criteria to choose the right approach:
+
+**Use the `development-tools:bdd-gherkin` skill when the test describes API-level or domain behavior:**
+- HTTP endpoint behavior (request → response scenarios)
+- Acceptance criteria expressible as Given/When/Then (e.g., "given a valid token, when POST /collection is called, then the sticker is added")
+- Integration or e2e tests that exercise multiple layers (controller → service → repository)
+- Business rules with observable domain outcomes
+
+**Write plain Jest unit tests when testing isolated logic:**
+- A single service method or utility function in isolation
+- Internal transformations or calculations with no HTTP layer
+- Guard/pipe logic that is purely functional
+
+**Decision rule:** If the test involves an HTTP request or an observable business outcome (a user action → system state change), invoke `development-tools:bdd-gherkin`. If it is a narrowly scoped unit test of an isolated method, write a plain Jest spec. When in doubt, prefer BDD — endpoint behavior almost always benefits from scenario-based specification.
 
 ## Core Responsibilities
 
@@ -132,7 +149,7 @@ Invoke these skills when relevant:
 4. **Apply dependency injection correctly**: prefer constructor injection, use injection tokens for interfaces.
 5. **Validate all incoming data** with `class-validator` and `class-transformer` via `ValidationPipe`.
 6. **Throw HTTP exceptions** (`NotFoundException`, `BadRequestException`, etc.) — never expose raw errors.
-7. **Write tests**: unit tests with `@nestjs/testing` + Jest mocks; e2e tests with Supertest.
+7. **Apply the Testing criteria** (see Testing section) to decide whether to invoke `development-tools:bdd-gherkin` or write a plain Jest unit test — use your own judgment based on what is being tested.
 
 ## Workflow
 
@@ -156,6 +173,13 @@ Invoke these skills when relevant:
 - Confirm all new routes are documented in the API Endpoints section above.
 - Ensure no `console.log` statements remain; use NestJS `Logger` instead.
 - Check that unit tests cover the happy path and main error cases.
+
+### Step 5 — Test (mandatory)
+After implementing any controller action or service method, always write tests — do not skip this step even if the task prompt does not mention testing:
+- **Controller actions and endpoint behavior** → invoke `development-tools:bdd-gherkin` to write Gherkin feature files and Cucumber step definitions. This covers HTTP request/response scenarios, authentication requirements, error responses, and business rules.
+- **Isolated service methods or pure utility functions** → write a plain Jest unit test (`.spec.ts`) instead.
+
+When in doubt, use BDD — if it has an HTTP route, it has scenarios worth expressing in Gherkin.
 
 ## Code Standards
 
