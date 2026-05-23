@@ -75,4 +75,10 @@ export class AlbumsService {
   findAllStickers(): Sticker[] {
     return ALBUMS.flatMap(generateStickers);
   }
+
+  getRandomSticker(): Sticker {
+    const all = this.findAllStickers();
+    if (all.length === 0) throw new NotFoundException('No stickers available');
+    return all[Math.floor(Math.random() * all.length)];
+  }
 }

@@ -31,6 +31,11 @@ export class StickersController {
     }));
   }
 
+  @Get('random')
+  getRandom() {
+    return this.albumsService.getRandomSticker();
+  }
+
   @Post(':id/like')
   @HttpCode(201)
   @UseGuards(JwtAuthGuard)
