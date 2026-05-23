@@ -28,6 +28,22 @@ Defined in `pnpm-workspace.yaml`:
 - **Build system**: Turborepo 2.9.9 (`turbo.json` at root)
 - **Turbo tasks**: `build`, `dev`, `lint`, `test`
 
+### Makefile
+
+A `Makefile` at the root loads `.env` into the environment and provides a shortcut to launch Claude Code.
+
+```bash
+make claude              # launch Claude Code with env vars from .env
+make claude ARGS="..."   # pass any Claude CLI flags or prompts
+```
+
+Examples:
+
+```bash
+make claude ARGS="--model claude-opus-4-7"
+make claude ARGS="-p 'explain this codebase'"
+```
+
 ### Common commands
 
 ```bash
