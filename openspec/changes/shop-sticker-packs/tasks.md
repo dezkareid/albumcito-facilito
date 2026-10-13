@@ -1,10 +1,10 @@
 ## 1. Backend — Sticker packs catalog (worktree `e1-t1-packs-api`, agent `backend-architect`)
 
-- [ ] 1.1 Create `apis/albumcito-facilito-api/src/packs/packs.service.ts` with the `Pack`/`PackDto` types and the in-memory seed from design D3; implement `findAll()` (ordered by `albumId`, `id`), `findOne(id)` (`NotFoundException` when missing) and `findByAlbum(albumId)` (validates the album via `AlbumsService.findOne`), all returning `PackDto` with `albumName`
-- [ ] 1.2 Create `src/packs/packs.controller.ts` with public routes `GET /packs`, `GET /packs/:id` and `GET /albums/:id/packs` using `ParseIntPipe` (design D1/D4)
-- [ ] 1.3 Create `src/packs/packs.module.ts` (imports `AlbumsModule`, exports `PacksService`) and register it in `src/app.module.ts`
-- [ ] 1.4 Add Jest spec `src/packs/packs.service.spec.ts`: ordering, `findOne` 404, `findByAlbum` filter + unknown album 404, every album has 1–2 packs, `priceCents` is a positive integer
-- [ ] 1.5 Add Cucumber `features/packs.feature` + `features/step-definitions/packs.steps.ts` covering every scenario in `specs/sticker-packs/spec.md` (reuse `shared.ts` context)
+- [x] 1.1 Create `apis/albumcito-facilito-api/src/packs/packs.service.ts` with the `Pack`/`PackDto` types and the in-memory seed from design D3; implement `findAll()` (ordered by `albumId`, `id`), `findOne(id)` (`NotFoundException` when missing) and `findByAlbum(albumId)` (validates the album via `AlbumsService.findOne`), all returning `PackDto` with `albumName`
+- [x] 1.2 Create `src/packs/packs.controller.ts` with public routes `GET /packs`, `GET /packs/:id` and `GET /albums/:id/packs` using `ParseIntPipe` (design D1/D4)
+- [x] 1.3 Create `src/packs/packs.module.ts` (imports `AlbumsModule`, exports `PacksService`) and register it in `src/app.module.ts`
+- [x] 1.4 Add Jest spec `src/packs/packs.service.spec.ts`: ordering, `findOne` 404, `findByAlbum` filter + unknown album 404, every album has 1–2 packs, `priceCents` is a positive integer
+- [x] 1.5 Add Cucumber `features/packs.feature` + `features/step-definitions/packs.steps.ts` covering every scenario in `specs/sticker-packs/spec.md` (reuse `shared.ts` context)
 - [ ] 1.6 Document the new endpoints in `apis/albumcito-facilito-api/CLAUDE.md`; run `test`, `test:bdd`, `test:e2e` and `lint` for `@albumcito-facilito/api` green
 
 ## 2. Frontend — Shop page (worktree `e1-t2-shop-ui`, agent `frontend-architect`)

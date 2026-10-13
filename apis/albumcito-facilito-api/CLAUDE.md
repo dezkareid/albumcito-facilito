@@ -20,6 +20,11 @@ pnpm --filter @albumcito-facilito/api build
 > - `GET /stickers` — return full catalog
 > - `GET /users/:id/collection` — return user's owned stickers
 > - `PUT /users/:id/collection/:stickerId` — mark a sticker as owned or missing
+>
+> Sticker packs (public, no auth; `PackDto` = `{ id, albumId, albumName, name, stickersPerPack, priceCents, currency }`, `currency` is `"MXN"`, price in integer cents):
+> - `GET /packs` — all packs ordered by `albumId`, then `id`
+> - `GET /packs/:id` — one pack; `404` if unknown, `400` if id is not numeric
+> - `GET /albums/:id/packs` — packs of an album; `404` if the album does not exist
 
 ## Domain Concepts
 
