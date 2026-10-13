@@ -1,0 +1,8 @@
+# Orca worktree hooks — https://www.onorca.dev/docs/model/orca-yaml
+scripts:
+  # Runs in the new worktree after it is created
+  setup: |
+    pnpm install
+  # Runs in the worktree before it is archived/removed
+  archive: |
+    find . -name node_modules -type d -prune -exec rm -rf {} +
