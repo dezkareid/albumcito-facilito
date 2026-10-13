@@ -5,7 +5,7 @@
 - [x] 1.3 Create `src/packs/packs.module.ts` (imports `AlbumsModule`, exports `PacksService`) and register it in `src/app.module.ts`
 - [x] 1.4 Add Jest spec `src/packs/packs.service.spec.ts`: ordering, `findOne` 404, `findByAlbum` filter + unknown album 404, every album has 1–2 packs, `priceCents` is a positive integer
 - [x] 1.5 Add Cucumber `features/packs.feature` + `features/step-definitions/packs.steps.ts` covering every scenario in `specs/sticker-packs/spec.md` (reuse `shared.ts` context)
-- [ ] 1.6 Document the new endpoints in `apis/albumcito-facilito-api/CLAUDE.md`; run `test`, `test:bdd`, `test:e2e` and `lint` for `@albumcito-facilito/api` green
+- [x] 1.6 Document the new endpoints in `apis/albumcito-facilito-api/CLAUDE.md`; run `test`, `test:bdd`, `test:e2e` and `lint` for `@albumcito-facilito/api` green
 
 ## 2. Frontend — Shop page (worktree `e1-t2-shop-ui`, agent `frontend-architect`)
 
