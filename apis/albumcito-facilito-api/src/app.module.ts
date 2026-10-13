@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AlbumsModule } from './albums/albums.module';
 import { AuthModule } from './auth/auth.module';
 import { CollectionModule } from './collection/collection.module';
+import { PacksModule } from './packs/packs.module';
 import { StickersModule } from './stickers/stickers.module';
 
 @Module({
@@ -13,6 +14,7 @@ import { StickersModule } from './stickers/stickers.module';
     AlbumsModule,
     AuthModule,
     CollectionModule,
+    PacksModule,
     StickersModule,
   ],
   controllers: [AppController],

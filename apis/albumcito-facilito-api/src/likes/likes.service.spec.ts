@@ -23,9 +23,9 @@ describe('LikesService', () => {
 
     it('does not change count on duplicate like attempt', () => {
       service.likeSticker('user-1', 101);
-      try {
-        service.likeSticker('user-1', 101);
-      } catch {}
+      expect(() => service.likeSticker('user-1', 101)).toThrow(
+        ConflictException,
+      );
       expect(service.getStickerLikeCount(101)).toBe(1);
     });
   });
@@ -43,9 +43,7 @@ describe('LikesService', () => {
 
     it('does not change count on duplicate like attempt', () => {
       service.likeAlbum('user-1', 1);
-      try {
-        service.likeAlbum('user-1', 1);
-      } catch {}
+      expect(() => service.likeAlbum('user-1', 1)).toThrow(ConflictException);
       expect(service.getAlbumLikeCount(1)).toBe(1);
     });
   });
